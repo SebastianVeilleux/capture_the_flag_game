@@ -1,19 +1,12 @@
-"""
-This program is a two-player board game where each player has three pieces on the board.
-The objective of the game is to move one of your pieces to the center of the board, which is marked by the 'Rf' or 'Bf' cell.
-The first player to do so wins the game. 
-Players take turns moving their pieces up, down, left, or right on the board. 
-The board is a 7x5 grid, and the pieces are represented by strings 'R1', 'R2', 'B1', and 'B2'. 
-The game is played in the console, and the board is printed after each move. 
-"""
-
 import numpy as np
+from colorama import Fore
 
 ROWS = 7
 COLUMNS = 5
 #Creates the board
 board = np.full((ROWS, COLUMNS),None)
 
+#Default winner to none
 winner = None
 
 #Defaults turn to Blue Team
@@ -48,11 +41,6 @@ def get_frame():
 get_frame()
 
 def get_coord(name):
-    """""
-    Searches for the parameter 'name' in the game board
-    and returns the position of the player in a list
-    as [x,y]
-    """""
     global board
     for i in range(len(board)):
         for j in range(len(board[0])):
@@ -61,7 +49,6 @@ def get_coord(name):
     
 
 def get_name(Coord):
-
     global board
     nombre = board[Coord[0]][board[0][1]]
     return[nombre]
@@ -77,6 +64,7 @@ def move_up(Player):
         board[coord[0]][coord[1]] = None
     elif coord[0]>=0 and new_coord != None:#Validates if the new position is not empty
         pass
+
     get_frame()
 
 def move_down(Player):
@@ -127,15 +115,15 @@ while winner == None:
     print(len(board))
     # Input jugador y movimiento
     if turn == 'Blue team':
-        print('\n' + turn + ' turn')
+        print(Fore.BLUE + '\n' + turn + ' turn')
         player = 'B' + input('Player: B')
         move = input('Move (up, right, left, down): ') 
     else:
-        print(turn + ' turn')
+        print(Fore.RED + '\n' + turn + ' turn')
         player = 'R' + input('Player: R')
         move = input('Move (up, right, left, down): ')
 
-    # Mueve el jugador dado en los inputs
+    # Moves the player  based on the input
     if move=='up':
         move_up(player)
     elif move=='down':
