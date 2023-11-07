@@ -16,9 +16,18 @@ turn = 'Red team'
 RED_TEAM = ['R1','Rf','R2']
 BLUE_TEAM = ['B1','Bf','B2']
 
+
+# Characters
+characters = {
+    "R1":'👹',
+    "R2":'👺',
+    "B1":'😇',
+    "B2":'👼'
+}
+
 #Set start positions
-board[0,1:4] = RED_TEAM
-board[ROWS-1,1:4] = BLUE_TEAM
+board[0,1:4] = characters['R1'], RED_TEAM[1], characters['R2']
+board[ROWS-1,1:4] = characters['B1'], RED_TEAM[1], characters['B2']
 
 
 def get_frame():
@@ -40,12 +49,16 @@ def get_frame():
     
 get_frame()
 
-def get_coord(name):
+def get_coord(name): #R1
     global board
+    character = characters.get(name)
+    print(character)
+    print(character)
+    print(character)
     for i in range(len(board)):
         for j in range(len(board[0])):
-            if board[i][j] == name:
-                return [i,j]
+            if board[i][j] == character: # =EMOJI
+                return [i,j]        # RETURN (i,j)
     
 
 def get_name(Coord):
@@ -93,7 +106,7 @@ def move_left(Player):
     
     get_frame()
 
-def move_right(Player): #Falta arregla la teletransportacion
+def move_right(Player):
     global board
     coord = get_coord(Player)
     
@@ -103,7 +116,6 @@ def move_right(Player): #Falta arregla la teletransportacion
         dest_col = coord[1] + 1
 
     if board[coord[0]][dest_col] == None:
-        print('Si entre')
         board[coord[0]][dest_col] = board[coord[0]][coord[1]]
         board[coord[0]][coord[1]] = None
     
@@ -112,14 +124,15 @@ def move_right(Player): #Falta arregla la teletransportacion
 
 
 while winner == None:
-    print(len(board))
     # Input jugador y movimiento
     if turn == 'Blue team':
-        print(Fore.BLUE + '\n' + turn + ' turn')
+        print('\n' + turn + ' turn')
+        print('B1 for: ' + characters['B1'] + '\t' + 'B2 for: ' +characters['B2'])
         player = 'B' + input('Player: B')
         move = input('Move (up, right, left, down): ') 
     else:
-        print(Fore.RED + '\n' + turn + ' turn')
+        print('\n' + turn + ' turn')
+        print('R1 for: ' + characters['R1'] + '\t' + 'R2 for: ' +characters['R2'])
         player = 'R' + input('Player: R')
         move = input('Move (up, right, left, down): ')
 
