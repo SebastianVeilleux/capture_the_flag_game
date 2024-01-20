@@ -16,7 +16,6 @@ turn = 'Red team'
 RED_TEAM = ['R1','Rf','R2']
 BLUE_TEAM = ['B1','Bf','B2']
 
-
 # Characters
 characters = {
     "R1":'👹',
@@ -49,7 +48,7 @@ def get_frame():
     
 get_frame()
 
-def get_coord(name): #R1
+def get_coord(name):
     global board
     character = characters.get(name)
     print(character)
@@ -57,8 +56,8 @@ def get_coord(name): #R1
     print(character)
     for i in range(len(board)):
         for j in range(len(board[0])):
-            if board[i][j] == character: # =EMOJI
-                return [i,j]        # RETURN (i,j)
+            if board[i][j] == character: 
+                return [i,j]
     
 
 def get_name(Coord):
