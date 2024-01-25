@@ -37,7 +37,6 @@ def get_frame():
     print(f'\t{board[0]}')
     print(f'\t{board[1]}')
     print(f'\t{board[2]}')
-    print(f'\t{board[3]}')
     print(f'LEFT    {board[3]}    RIGHT')
     print(f'\t{board[4]}')
     print(f'\t{board[5]}')
