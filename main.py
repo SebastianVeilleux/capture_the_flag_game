@@ -5,7 +5,6 @@ ROWS = 7
 COLUMNS = 5
 board = np.full((ROWS, COLUMNS),None)
 
-
 winner = None
 turn = 'Red team'
 
@@ -22,7 +21,7 @@ characters = {
 
 #Set start positions
 board[0,1:4] = characters['R1'], RED_TEAM[1], characters['R2']
-board[ROWS-1,1:4] = characters['B1'], RED_TEAM[1], characters['B2']
+board[ROWS-1,1:4] = characters['B1'], BLUE_TEAM[1], characters['B2']
 
 #Prints the board
 def get_frame():
@@ -43,7 +42,6 @@ def get_frame():
     
 get_frame()
 
-#Get the coordinates of a character
 def get_coord(name):
     global board
     character = characters.get(name)
@@ -51,16 +49,16 @@ def get_coord(name):
         for j in range(len(board[0])):
             if board[i][j] == character: 
                 return [i,j]
-    
-#Get the name of a character based on its coordinates
+
 def get_name(Coord):
     global board
     nombre = board[Coord[0]][board[0][1]]
     return[nombre]
 
-#Move a character up
 def move_up(Player):
     global board
+    global winner
+    
     coord = get_coord(Player)
     new_coord = board[coord[0]-1][coord[1]]
 
@@ -68,11 +66,15 @@ def move_up(Player):
         board[coord[0]-1][coord[1]] = board[coord[0]][coord[1]]
         board[coord[0]][coord[1]] = None
     elif coord[0]>=0 and new_coord != None:#Validates if the new position is not empty
-        pass
+        if turn == 'Blue team' and board[coord[0]-1][coord[1]] == "Rf":
+            winner = 'Blue team'
+        elif turn == 'Red team' and board[coord[0]-1][coord[1]] == "Bf":
+            winner = 'Red team'
+        else:
+            pass
 
     get_frame()
 
-#Move a character down
 def move_down(Player):
     global board
     coord = get_coord(Player)
@@ -86,7 +88,6 @@ def move_down(Player):
         
     get_frame()
 
-#Move a character left
 def move_left(Player):
     global board
     coord = get_coord(Player)
@@ -100,7 +101,6 @@ def move_left(Player):
     
     get_frame()
 
-#Move a character right
 def move_right(Player):
     global board
     coord = get_coord(Player)
@@ -120,7 +120,6 @@ def move_right(Player):
 
 while winner == None:
     
-    # Ask for player and move
     if turn == 'Blue team':
         print('\n' + turn + ' turn')
         print('B1 for: ' + characters['B1'] + '\t' + 'B2 for: ' +characters['B2'])
@@ -150,7 +149,6 @@ while winner == None:
             print("Invalid move")
             move = input('Move (up, right, left, down): ')
 
-    # Move player
     if move=='up':
         move_up(player)
     elif move=='down':
@@ -160,18 +158,12 @@ while winner == None:
     elif move == ('right'):
         move_right(player)
     
-    # Check winner
-    if board[6][2]=='B1Rf' or board[6][2]=='B2Rf':
-        winner = 'Blue team'
-    elif board[0][2]=='R1Rf' or board[0][2]=='R2Rf':
-        winner = 'Red Team'
 
-    # Change turn
     if turn == 'Blue team':
         turn = 'Red team'
     else:
         turn = 'Blue team'
 
-
-
 print('\nThe Winner is the ' + winner + '!')
+print('Congratulations!')
+print("")
